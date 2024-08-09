@@ -32,7 +32,7 @@ class WBCrawler:
             self.__driver.get(self.url)
             self.__out_all_elem()
             urls = self.__get_links_for_parsing()
-            time.sleep(10)
+            time.sleep(1)
         except Exception as err:
             print(err)
         finally:
@@ -49,6 +49,7 @@ class WBCrawler:
 
         while 99 > len(self.__driver.find_elements(by=By.XPATH, value='//div[@class="product-card__wrapper"]')):
             main_page.send_keys(Keys.PAGE_DOWN)
+            time.sleep(0.5)
 
         time.sleep(1)
 
