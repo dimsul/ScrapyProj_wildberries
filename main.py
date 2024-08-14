@@ -6,13 +6,10 @@ def main():
 
     url = getting_search_req()
     crawler = WBCrawler(url)
-    # parser = WBPriceParser
 
     res = crawler.run()
     for i in res:
-        print(i)
-        # print(WBPriceParser(i).get_price())
-    # print(res)
+        WBPriceParser(i).run()
 
 
 if __name__ == '__main__':

@@ -47,7 +47,10 @@ class WBCrawler:
 
         main_page = self.__driver.find_element(By.XPATH, '//html')
 
-        while 99 > len(self.__driver.find_elements(by=By.XPATH, value='//div[@class="product-card__wrapper"]')):
+        counter = 20    # Отсечка, если эллементов на странице меньше максимального числа
+        while (20 > len(self.__driver.find_elements(by=By.XPATH, value='//div[@class="product-card__wrapper"]'))
+               and counter != 0):
+            counter -= 1
             main_page.send_keys(Keys.PAGE_DOWN)
             time.sleep(0.5)
 
@@ -60,25 +63,3 @@ class WBCrawler:
         attr = 'href'
 
         return tuple(elem.get_attribute(attr) for elem in self.__driver.find_elements(By.XPATH, value))
-
-
-
-# driver = webdriver.Edge()
-#
-# try:
-#     driver.get(getting_search_req())
-#
-#     out_all_elem(driver)
-#
-#     links = get_links_for_parsing(driver)
-#
-#     print(links)
-#     time.sleep(30)
-# except Exception as err:
-#     print(err)
-# finally:
-#     driver.close()
-#     driver.quit()
-
-
-# print(getting_search_req())

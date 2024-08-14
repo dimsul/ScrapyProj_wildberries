@@ -16,31 +16,25 @@ class WBPriceParser:
 
         self.__driver = webdriver.Edge()
 
-    def get_price(self):
+    def run(self, sleep=1):
         """Запуск парсера"""
 
         try:
             self.__driver.get(self.url)
-            time.sleep(1)
-            # self.__scroll_page()
-            res = self.__get_price_str()
+            time.sleep(sleep)
+            res = self.__get_price()
             print(res, self.url)
         except Exception as err:
-            print(err, self.url)
+            # print(err, self.url)
+            if 'no such element' in err:
+                self.run(sleep=sleep+1)
+            else:
+                print(err)
         finally:
             self.__driver.close()
             self.__driver.quit()
 
-    # def __scroll_page(self):
-    #     time.sleep(1)
-    #     main_page = self.__driver.find_element(By.XPATH, '//html')
-    #     # main_page.send_keys(Keys.PAGE_DOWN)
-    #     # main_page.send_keys(Keys.PAGE_DOWN)
-    #     # main_page.send_keys(Keys.PAGE_DOWN)
-    #     # main_page.send_keys(Keys.PAGE_DOWN)
-    #     time.sleep(1)
-
-    def __get_price_str(self) -> int:
+    def __get_price(self) -> int:
         """Возвращает цену в виде int"""
         res = self.__driver.find_element(By.XPATH, '//p[@class="price-block__price-wrap "]')
         soup = bs4.BeautifulSoup(res.get_attribute('innerHTML'), 'html.parser')
@@ -54,9 +48,3 @@ class WBPriceParser:
         for char in chars_to_replace:
             price = price.replace(char, '')
         return int(price)
-
-
-# url = 'https://www.wildberries.ru/catalog/150385348/detail.aspx'
-#
-# pars = WBPriceParser(url)
-# pars.get_price()
