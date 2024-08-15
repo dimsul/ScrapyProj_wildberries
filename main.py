@@ -3,33 +3,20 @@ from price_parser import WBPriceParser
 
 import multiprocessing
 import time
-import psutil
 
 
 def main():
 
     time_ = time.time()
 
-    url = getting_search_req()
-    crawler = WBCrawler(url)
+    search_url = getting_search_req()
+    crawler = WBCrawler(search_url)
 
-    res = crawler.run()
-    # for i in res:
-    #     WBPriceParser(i).run()
+    urls_to_products = crawler.run()
 
-    pool = multiprocessing.Pool(processes=psutil.cpu_count(logical=False)-1)
+    pool = multiprocessing.Pool(processes=multiprocessing.cpu_count()-1)
 
-    result = pool.map(run_parser, res)
-
-    # processess = {}
-    # for url in res:
-    #     processess[url] = multiprocessing.Process(target=run_parser, args=(url,), daemon=True)
-    #
-    # for url in processess:
-    #     processess[url].start()
-    #
-    # for url in processess:
-    #     processess[url].join()
+    result = pool.map(run_parser, urls_to_products)
 
     print(time.time() - time_)
 
@@ -40,11 +27,9 @@ def main():
 
 
 def run_parser(url):
-    parser_ = WBPriceParser(url)
-    res = parser_.run()
-    if not isinstance(res, tuple):
-        res = run_parser(url)
-    return res
+    """Запускает парсер и возвращает результат его работы"""
+
+    return WBPriceParser(url).run()
 
 
 if __name__ == '__main__':

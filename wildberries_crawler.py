@@ -30,7 +30,7 @@ class WBCrawler:
 
         try:
             self.__driver.get(self.url)
-            self.__out_all_elem()
+            self.__scroll_all_elem()
             urls = self.__get_links_for_parsing()
             time.sleep(1)
         except Exception as err:
@@ -41,7 +41,7 @@ class WBCrawler:
 
         return urls
 
-    def __out_all_elem(self):
+    def __scroll_all_elem(self):
         """Вывод всех эллементов на страницу
         для последующего поиска ссылок"""
 
