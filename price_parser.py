@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as exp_con
 from selenium.webdriver.common.keys import Keys
 import time
 
@@ -19,20 +21,27 @@ class WBPriceParser:
     def run(self, sleep=1):
         """Запуск парсера"""
 
+        value_to_return = None
+
         try:
             self.__driver.get(self.url)
             time.sleep(sleep)
             res = self.__get_price()
-            print(res, self.url)
+            value_to_return = (res, self.url)
+            # print(res, self.url)
         except Exception as err:
+            value_to_return = err
             # print(err, self.url)
-            if 'no such element' in err:
-                self.run(sleep=sleep+1)
-            else:
-                print(err)
+            # if 'no such element' in err:
+            #     self.run(sleep=sleep+1)
+            # else:
+            #     print('|'*40)
+            #     print(err)
         finally:
             self.__driver.close()
             self.__driver.quit()
+
+        return value_to_return
 
     def __get_price(self) -> int:
         """Возвращает цену в виде int"""
