@@ -5,16 +5,6 @@ import time
 import dataclasses
 
 
-def getting_search_req():
-    """формирование url из поискового запроса"""
-
-    search_req = str(input('enter search request: '))
-    search_req = search_req.replace(' ', '%20')
-    search_req = f'https://www.wildberries.ru/catalog/0/search.aspx?search={search_req}'
-
-    return search_req
-
-
 @dataclasses.dataclass
 class WBCrawler:
 
