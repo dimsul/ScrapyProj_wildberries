@@ -3,10 +3,14 @@ import os
 from price_parser import WBPriceParser
 
 
-def getting_search_req(result):
+def getting_search_req(result, request: (str, None) = None):
     """формирование url из поискового запроса"""
 
-    search_req = str(input('enter search request: ')).strip()
+    if request is None:
+        search_req = str(input('enter search request: ')).strip()
+
+    else:
+        search_req = request.strip()
 
     result.req = search_req
 
