@@ -38,7 +38,7 @@ class WBCrawler:
         main_page = self.__driver.find_element(By.XPATH, '//html')
 
         counter = 20    # Отсечка, если эллементов на странице меньше максимального числа
-        while (20 > len(self.__driver.find_elements(by=By.XPATH, value='//div[@class="product-card__wrapper"]'))
+        while (99 > len(self.__driver.find_elements(by=By.XPATH, value='//div[@class="product-card__wrapper"]'))
                and counter != 0):
             counter -= 1
             main_page.send_keys(Keys.PAGE_DOWN)
