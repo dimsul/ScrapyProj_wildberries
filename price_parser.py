@@ -16,7 +16,7 @@ class WBPriceParser:
 
         self.__driver = webdriver.Edge()
 
-    def run(self, sleep=1):
+    def run(self):
         """Запуск парсера"""
 
         try:
