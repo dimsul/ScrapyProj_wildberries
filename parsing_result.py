@@ -1,6 +1,8 @@
 import dataclasses
+import openpyxl
 
 import numpy
+from xlsx_writer import WriteXlsxFile
 
 
 @dataclasses.dataclass
@@ -9,7 +11,7 @@ class ParsingResult:
     req: str = None
     prices_and_urls: [list, tuple, set] = None
 
-    def load_to_file(self):
+    def load_to_files(self):
 
         # Удаляем результаты парсинга отработавшего с ошибкой, если такой есть
         self.__clear_parsing_result_from_errors()
@@ -29,6 +31,9 @@ class ParsingResult:
             file.write(f'\nСреднее значение цены: {numpy.average([elem[0] for elem in self.prices_and_urls])}\n')
 
             file.write(f'\n{"|" * 120}\n')
+
+        # Так-же записываес среднее значение в xlsx-файл
+        WriteXlsxFile(r'./Юнит ВБ.xlsx', numpy.average([elem[0] for elem in self.prices_and_urls])).set_data_to_xlsx_file()
 
     def __clear_parsing_result_from_errors(self):
         """Удаление ошибочных результатов работы пврсера"""

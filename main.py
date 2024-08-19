@@ -33,7 +33,7 @@ def main(request):
 
     print()
 
-    result.load_to_file()
+    result.load_to_files()
 
 
 if __name__ == '__main__':
