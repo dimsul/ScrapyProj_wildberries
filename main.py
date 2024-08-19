@@ -1,3 +1,4 @@
+import openpyxl
 import multiprocessing
 import time
 import datetime
@@ -5,6 +6,7 @@ import datetime
 from parsing_result import ParsingResult
 from wildberries_crawler import WBCrawler
 from functions import (getting_search_req, run_parser, creating_error_log_directory)
+from xlsx_reader import OpenXlsxFile
 
 
 def main(request):
@@ -38,9 +40,9 @@ if __name__ == '__main__':
 
     try:
 
-        with open('./test.txt', 'r', encoding='utf-8') as file:
-            requests = file.read()
-            requests = requests.split('\n')
+        file = OpenXlsxFile(r'./Юнит ВБ.xlsx')
+        requests = file.get_list_of_requests()
+
     except FileExistsError:
         requests = None
 
