@@ -49,7 +49,7 @@ class WBCrawler:
     def __get_links_for_parsing(self):
         """Вывод всех ссылок для парсинга цен"""
 
-        value = '//div[@class="product-card__wrapper"]/a'
+        value = '//div[@class="product-card-overflow"]//div[@class="product-card__wrapper"]/a'
         attr = 'href'
 
         return tuple(elem.get_attribute(attr) for elem in self.__driver.find_elements(By.XPATH, value))
