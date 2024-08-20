@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from numpy import median, average
 from xlsx_writer import XlsxWriter
 
+from params import XLSX_FILENAME
+
 
 @dataclass
 class ParsingResult:
@@ -37,7 +39,7 @@ class ParsingResult:
             file.write(f'\n{"|" * 120}\n')
 
         # Так-же записываес среднее значение в xlsx-файл
-        XlsxWriter(r'./Юнит ВБ.xlsx', average_).set_data_to_xlsx_file()
+        XlsxWriter(XLSX_FILENAME, average_).set_data_to_xlsx_file()
 
     def __clear_parsing_result_from_errors(self):
         """Удаление ошибочных результатов работы пврсера"""

@@ -5,6 +5,7 @@ from parsing_result import ParsingResult
 from wildberries_crawler import WBCrawler
 from functions import getting_search_req, run_price_scraper, creating_error_log_directory
 from xlsx_reader import XlsxReader
+from params import XLSX_FILENAME
 
 
 def main(req):
@@ -33,7 +34,7 @@ if __name__ == '__main__':
     # Формируем список запросов
     try:
 
-        file = XlsxReader(r'./Юнит ВБ.xlsx')
+        file = XlsxReader(XLSX_FILENAME)
         requests = file.get_list_of_requests()
 
     except FileExistsError:

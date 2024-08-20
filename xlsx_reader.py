@@ -2,6 +2,8 @@ from openpyxl import load_workbook
 from dataclasses import dataclass
 from os import path
 
+from params import XLSX_WORK_SHEET
+
 
 @dataclass
 class XlsxReader:
@@ -22,10 +24,10 @@ class XlsxReader:
             requests = []
             row = 2
             while True:
-                if ws['Расчет'].cell(row, 25).value is None:
+                if ws[XLSX_WORK_SHEET].cell(row, 25).value is None:
                     break
                 else:
-                    requests.append(ws['Расчет'].cell(row, 25).value)
+                    requests.append(ws[XLSX_WORK_SHEET].cell(row, 25).value)
                     row += 1
         except Exception:
             raise FileExistsError

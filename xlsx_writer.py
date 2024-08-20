@@ -2,6 +2,7 @@ from openpyxl import load_workbook
 from dataclasses import dataclass
 
 from xlsx_reader import XlsxReader
+from params import XLSX_WORK_SHEET
 
 
 @dataclass
@@ -26,7 +27,7 @@ class XlsxWriter(XlsxReader):
         try:
 
             wb = load_workbook(f'{filename}')
-            ws = wb['Расчет']
+            ws = wb[XLSX_WORK_SHEET]
             ws[f'Z{cls.row_counter}'] = value
             cls.row_counter += 1
             wb.save(f'{filename}')
