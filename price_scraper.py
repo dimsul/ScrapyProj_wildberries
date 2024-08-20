@@ -2,13 +2,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as exp_con
+from bs4 import BeautifulSoup
+from dataclasses import dataclass
 
-import bs4
-import dataclasses
 
-
-@dataclasses.dataclass
-class WBPriceParser:
+@dataclass
+class WBPriceScraper:
+    """Скрапер поиска цены на товар"""
 
     url: str = None
 
@@ -44,7 +44,7 @@ class WBPriceParser:
         """Возвращает цену в виде int"""
 
         res = self.__driver.find_element(By.XPATH, '//p[@class="price-block__price-wrap "]')
-        soup = bs4.BeautifulSoup(res.get_attribute('innerHTML'), 'html.parser')
+        soup = BeautifulSoup(res.get_attribute('innerHTML'), 'html.parser')
         price_str = soup.select('ins')[-1].text
 
         return self.__price_to_int(price_str)

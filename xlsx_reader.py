@@ -1,22 +1,24 @@
-import openpyxl
-import dataclasses
-import os
+from openpyxl import load_workbook
+from dataclasses import dataclass
+from os import path
 
 
-@dataclasses.dataclass
-class OpenXlsxFile:
+@dataclass
+class XlsxReader:
+    """Ридер xlsx файлов для получения поисковых запросов"""
 
     filename: str
 
     def __post_init__(self):
 
-        if not os.path.isfile(self.filename):
+        if not path.isfile(self.filename):
             raise FileNotFoundError
 
     def get_list_of_requests(self):
+        """Получаем список запросов и возвращаем их в программу"""
 
         try:
-            ws = openpyxl.load_workbook(f'{self.filename}')
+            ws = load_workbook(f'{self.filename}')
             requests = []
             row = 2
             while True:

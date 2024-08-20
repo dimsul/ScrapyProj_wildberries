@@ -1,12 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-import time
-import dataclasses
+from time import sleep
+from dataclasses import dataclass
 
 
-@dataclasses.dataclass
+@dataclass
 class WBCrawler:
+    """Краулер по поиску ссылок на товары"""
 
     url: str
 
@@ -15,17 +16,24 @@ class WBCrawler:
         self.__driver = webdriver.Edge()
 
     def run(self):
+        """Запуск краулера"""
 
         urls = None
 
         try:
+
             self.__driver.get(self.url)
             self.__scroll_all_elem()
             urls = self.__get_links_for_parsing()
-            time.sleep(1)
+            sleep(1)
+
         except Exception as err:
-            print(err)
+
+            with open(f"./error_log/_crawler_err.txt", 'a') as file:
+                file.write(f'{err}')
+
         finally:
+
             self.__driver.close()
             self.__driver.quit()
 
@@ -42,9 +50,9 @@ class WBCrawler:
                and counter != 0):
             counter -= 1
             main_page.send_keys(Keys.PAGE_DOWN)
-            time.sleep(0.5)
+            sleep(0.5)
 
-        time.sleep(1)
+        sleep(1)
 
     def __get_links_for_parsing(self):
         """Вывод всех ссылок для парсинга цен"""

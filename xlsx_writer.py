@@ -1,11 +1,12 @@
-import openpyxl
-import dataclasses
+from openpyxl import load_workbook
+from dataclasses import dataclass
 
-from xlsx_reader import OpenXlsxFile
+from xlsx_reader import XlsxReader
 
 
-@dataclasses.dataclass
-class WriteXlsxFile(OpenXlsxFile):
+@dataclass
+class XlsxWriter(XlsxReader):
+    """Запись файла в xlsx файл"""
 
     row_counter = 2
 
@@ -20,13 +21,17 @@ class WriteXlsxFile(OpenXlsxFile):
 
     @classmethod
     def __insert_data(cls, filename, value):
+        """Запись данных в файл"""
+
         try:
-            wb = openpyxl.load_workbook(f'{filename}')
+
+            wb = load_workbook(f'{filename}')
             ws = wb['Расчет']
             ws[f'Z{cls.row_counter}'] = value
             cls.row_counter += 1
             wb.save(f'{filename}')
 
         except Exception as err:
-            with open(f"./error_log/load_to_xlsx_error.txt", 'a') as file:
+
+            with open(f"./error_log/write_to_xlsx_error.txt", 'a') as file:
                 file.write(f'{err}')
