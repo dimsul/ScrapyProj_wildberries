@@ -11,7 +11,7 @@ class XlsxWriter(XlsxReader):
 
     row_counter = 2
 
-    value: [int, float]
+    value: [int, float, str]
 
     def get_list_of_requests(self):
         pass

@@ -26,6 +26,7 @@ class ParsingResult:
 
             # Записываем результаты парсинга
             for price_and_url in self.prices_and_urls:
+                print(price_and_url)
                 file.write(f'Стоимость товара: {price_and_url[0]}, ссылка на товар - {price_and_url[1]}\n')
 
             # Вычисляем медианное и среднее значения
@@ -44,11 +45,13 @@ class ParsingResult:
     def __clear_parsing_result_from_errors(self):
         """Удаление ошибочных результатов работы пврсера"""
 
-        parsing_result = set(self.prices_and_urls)
+        self.prices_and_urls = set(self.prices_and_urls)
 
-        if None in parsing_result:
-            parsing_result.remove(None)
+        if None in self.prices_and_urls:
+            self.prices_and_urls.remove(None)
 
-        if len(parsing_result) == 0:
+        if len(self.prices_and_urls) == 0:
+
+            XlsxWriter(XLSX_FILENAME, 'ERROR').set_data_to_xlsx_file()
             raise ValueError(f'Не найдено ни одного результата (либо запрос сформирован некорректно,\n'
                              f'либо произошел сбой при поиске цены)')
