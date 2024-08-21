@@ -14,7 +14,7 @@ class WBPriceScraper:
 
     def __post_init__(self):
 
-        self.__driver = webdriver.Edge()
+        self.__driver = webdriver.Chrome()
 
     def run(self):
         """Запуск парсера"""

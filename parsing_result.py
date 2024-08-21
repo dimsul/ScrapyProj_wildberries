@@ -26,7 +26,6 @@ class ParsingResult:
 
             # Записываем результаты парсинга
             for price_and_url in self.prices_and_urls:
-                print(price_and_url)
                 file.write(f'Стоимость товара: {price_and_url[0]}, ссылка на товар - {price_and_url[1]}\n')
 
             # Вычисляем медианное и среднее значения

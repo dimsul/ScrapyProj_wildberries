@@ -49,3 +49,6 @@ if __name__ == '__main__':
             with open(f'./{datetime.now()}__run_error.txt'.replace(':', '_'), 'w') as file:
                 file.write('Работа программы завершилась ошибкой:\n\n')
                 file.write(f'{err}')
+            print('ERROR')
+
+    print('DONE')
