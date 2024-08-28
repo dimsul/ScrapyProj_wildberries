@@ -13,7 +13,7 @@ class WBCrawler:
 
     def __post_init__(self):
 
-        self.__driver = webdriver.Chrome()
+        self.__driver = webdriver.Edge()
 
     def run(self):
         """Запуск краулера"""
